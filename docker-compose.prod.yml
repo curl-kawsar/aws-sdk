@@ -1,11 +1,11 @@
-# Production overlay: bind API and MinIO to localhost only.
-# Nginx on the host terminates TLS and proxies to 127.0.0.1:${API_HOST_PORT:-29002}.
+# Production overlay.
+# MinIO has no published ports (API reaches it over Docker internal network).
+# The API binds to 0.0.0.0 on a high port; ufw blocks external access.
+# Nginx proxies public 80/443 → localhost:29002.
 #
 #   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
-#
-# Do not publish MinIO ports publicly; use the API only, or tunnel to MinIO console port for admin.
 
 services:
   api:
     ports:
-      - "127.0.0.1:${API_HOST_PORT:-29002}:8000"
+      - "${API_HOST_PORT:-29002}:8000"
