@@ -2,7 +2,7 @@ import os
 
 
 class Settings:
-    MINIO_ENDPOINT: str = os.getenv("MINIO_ENDPOINT", "localhost:7100")
+    MINIO_ENDPOINT: str = os.getenv("MINIO_ENDPOINT", "localhost:19800")
     MINIO_ACCESS_KEY: str = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
     MINIO_SECRET_KEY: str = os.getenv("MINIO_SECRET_KEY", "minioadmin123")
     MINIO_BUCKET: str = os.getenv("MINIO_BUCKET", "uploads")

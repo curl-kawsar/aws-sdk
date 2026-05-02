@@ -3,8 +3,9 @@ services:
     image: minio/minio:latest
     container_name: minio
     ports:
-      - "7100:9000"   # S3 API (host:container)
-      - "7101:9001"   # Web Console
+      # Host ports (change in .env if "address already in use")
+      - "${MINIO_HOST_PORT_S3:-19800}:9000"
+      - "${MINIO_HOST_PORT_CONSOLE:-19801}:9001"
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin123}
@@ -22,7 +23,7 @@ services:
     build: .
     container_name: upload-api
     ports:
-      - "6500:8000"
+      - "${API_HOST_PORT:-6500}:8000"
     environment:
       MINIO_ENDPOINT: minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-minioadmin}

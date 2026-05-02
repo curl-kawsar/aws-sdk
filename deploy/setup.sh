@@ -28,8 +28,11 @@ if command -v ufw &>/dev/null; then
     ufw allow 80/tcp   # HTTP (redirect + ACME)
     ufw allow 443/tcp  # HTTPS
     ufw --force enable
-    echo "    Firewall: 22, 80, 443 open. 6500/7100/7101 blocked from outside."
+    echo "    Firewall: 22, 80, 443 open. API/MinIO only on localhost (see .env ports)."
 fi
+
+MINIO_CONSOLE_PORT="$(grep -E '^MINIO_HOST_PORT_CONSOLE=' "$PROJECT_DIR/.env" 2>/dev/null | cut -d= -f2- | tr -d '\r' || true)"
+MINIO_CONSOLE_PORT="${MINIO_CONSOLE_PORT:-19801}"
 
 echo "==> Installing Nginx site config"
 cp "$PROJECT_DIR/deploy/nginx/upload-api.conf" "/etc/nginx/sites-available/$DOMAIN"
@@ -52,6 +55,6 @@ echo ""
 echo "  API key (from .env):  $(grep '^API_KEYS=' .env | cut -d= -f2-)"
 echo ""
 echo "  Health check:  curl -s https://$DOMAIN/health"
-echo "  MinIO console: ssh -L 7101:127.0.0.1:7101 root@YOUR_VPS_IP"
-echo "                 then open http://localhost:7101"
+echo "  MinIO console: ssh -L ${MINIO_CONSOLE_PORT}:127.0.0.1:${MINIO_CONSOLE_PORT} root@YOUR_VPS_IP"
+echo "                 then open http://localhost:${MINIO_CONSOLE_PORT}"
 echo "════════════════════════════════════════════════════════════════"
