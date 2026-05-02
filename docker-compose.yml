@@ -1,7 +1,7 @@
 services:
   minio:
     image: minio/minio:latest
-    container_name: minio
+    container_name: upload-minio
     ports:
       # Host ports (change in .env if "address already in use")
       - "${MINIO_HOST_PORT_S3:-29000}:9000"
