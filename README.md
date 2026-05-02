@@ -15,9 +15,9 @@ cp env.example .env       # edit credentials in .env
 docker compose up -d --build
 
 # 3. Open
-#    Upload UI    → http://localhost:6500
-#    API docs     → http://localhost:6500/docs  (only when DISABLE_DOCS=false)
-#    MinIO console → http://localhost:19801  (ports from MINIO_HOST_PORT_* in .env)
+#    Upload UI    → http://localhost:29002
+#    API docs     → http://localhost:29002/docs  (only when DISABLE_DOCS=false)
+#    MinIO console → http://localhost:29001
 ```
 
 ## Production Deployment
@@ -27,7 +27,7 @@ docker compose up -d --build
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 ```
 
-This binds the API and MinIO to **localhost only** (ports from `.env`: `API_HOST_PORT`, `MINIO_HOST_PORT_S3`, `MINIO_HOST_PORT_CONSOLE`; defaults **6500** / **19800** / **19801**). Nginx is the sole public-facing entry.
+This binds the API and MinIO to **localhost only** (ports from `.env`: `API_HOST_PORT`, `MINIO_HOST_PORT_S3`, `MINIO_HOST_PORT_CONSOLE`; defaults **29002** / **29000** / **29001**). Nginx is the sole public-facing entry.
 
 ### Setup checklist
 
@@ -96,9 +96,9 @@ console.log(data.url); // permanent download link
 
 | Variable | Default | Description |
 |---|---|---|
-| `MINIO_HOST_PORT_S3` | `19800` | Host port mapped to MinIO S3 API (increase if port busy). |
-| `MINIO_HOST_PORT_CONSOLE` | `19801` | Host port for MinIO web console. |
-| `API_HOST_PORT` | `6500` | Host port for FastAPI; **must match** Nginx `upstream` in `deploy/nginx/upload-api.conf`. |
+| `MINIO_HOST_PORT_S3` | `29000` | Host port mapped to MinIO S3 API (increase if port busy). |
+| `MINIO_HOST_PORT_CONSOLE` | `29001` | Host port for MinIO web console. |
+| `API_HOST_PORT` | `29002` | Host port for FastAPI; **must match** Nginx `upstream` in `deploy/nginx/upload-api.conf`. |
 | `MINIO_ROOT_USER` | `minioadmin` | MinIO root username |
 | `MINIO_ROOT_PASSWORD` | `minioadmin123` | MinIO root password |
 | `MINIO_BUCKET` | `uploads` | Default bucket name |

@@ -32,7 +32,7 @@ if command -v ufw &>/dev/null; then
 fi
 
 MINIO_CONSOLE_PORT="$(grep -E '^MINIO_HOST_PORT_CONSOLE=' "$PROJECT_DIR/.env" 2>/dev/null | cut -d= -f2- | tr -d '\r' || true)"
-MINIO_CONSOLE_PORT="${MINIO_CONSOLE_PORT:-19801}"
+MINIO_CONSOLE_PORT="${MINIO_CONSOLE_PORT:-29001}"
 
 echo "==> Installing Nginx site config"
 cp "$PROJECT_DIR/deploy/nginx/upload-api.conf" "/etc/nginx/sites-available/$DOMAIN"
