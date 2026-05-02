@@ -6,11 +6,6 @@
 # Do not publish MinIO ports publicly; use the API only, or tunnel to MinIO console port for admin.
 
 services:
-  minio:
-    ports:
-      - "127.0.0.1:${MINIO_HOST_PORT_S3:-29000}:9000"
-      - "127.0.0.1:${MINIO_HOST_PORT_CONSOLE:-29001}:9001"
-
   api:
     ports:
       - "127.0.0.1:${API_HOST_PORT:-29002}:8000"
