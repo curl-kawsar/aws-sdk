@@ -33,8 +33,8 @@ This binds the API and MinIO to **localhost only** (ports from `.env`: `API_HOST
 
 1. **DNS:** `A` record for `upload.1550plus.com` → your VPS IP.
 2. **`.env`:** strong `MINIO_ROOT_*`, `API_KEYS`, `CORS_ORIGINS`, `TRUSTED_HOSTS`, `PUBLIC_BASE_URL`.
-3. **Nginx:** copy `deploy/nginx/upload-api.conf` → `/etc/nginx/sites-available/upload.1550plus.com`, symlink to `sites-enabled`, run `nginx -t && systemctl reload nginx`.
-4. **TLS:** `sudo certbot --nginx -d upload.1550plus.com` then `systemctl reload nginx`.
+3. **Nginx:** copy `deploy/nginx/upload-api.conf` (HTTP-only, works before certs), then `nginx -t && systemctl reload nginx`.
+4. **TLS:** `sudo certbot --nginx -d upload.1550plus.com` (adds HTTPS to that site), then `systemctl reload nginx` if needed.
 5. **Firewall:** allow **22**, **80**, **443** only. Do not expose `API_HOST_PORT` or MinIO host ports on the public internet when using the production overlay.
 6. **Backups:** snapshot `minio_data` volume or `mc mirror`.
 
