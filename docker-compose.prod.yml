@@ -1,0 +1,16 @@
+# Production overlay: bind API and MinIO to localhost only.
+# Nginx on the host terminates TLS and proxies to 127.0.0.1:6500.
+#
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Do not publish MinIO ports publicly; use the API only, or tunnel to :7001 for admin.
+
+services:
+  minio:
+    ports:
+      - "127.0.0.1:7000:9000"
+      - "127.0.0.1:7001:9001"
+
+  api:
+    ports:
+      - "127.0.0.1:6500:8000"
