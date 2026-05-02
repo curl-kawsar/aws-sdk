@@ -28,7 +28,7 @@ if command -v ufw &>/dev/null; then
     ufw allow 80/tcp   # HTTP (redirect + ACME)
     ufw allow 443/tcp  # HTTPS
     ufw --force enable
-    echo "    Firewall: 22, 80, 443 open. 6000/7000/7001 blocked from outside."
+    echo "    Firewall: 22, 80, 443 open. 6500/7100/7101 blocked from outside."
 fi
 
 echo "==> Installing Nginx site config"
@@ -52,6 +52,6 @@ echo ""
 echo "  API key (from .env):  $(grep '^API_KEYS=' .env | cut -d= -f2-)"
 echo ""
 echo "  Health check:  curl -s https://$DOMAIN/health"
-echo "  MinIO console: ssh -L 7001:127.0.0.1:7001 root@YOUR_VPS_IP"
-echo "                 then open http://localhost:7001"
+echo "  MinIO console: ssh -L 7101:127.0.0.1:7101 root@YOUR_VPS_IP"
+echo "                 then open http://localhost:7101"
 echo "════════════════════════════════════════════════════════════════"

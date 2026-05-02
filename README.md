@@ -17,7 +17,7 @@ docker compose up -d --build
 # 3. Open
 #    Upload UI    → http://localhost:6500
 #    API docs     → http://localhost:6500/docs  (only when DISABLE_DOCS=false)
-#    MinIO console → http://localhost:7001
+#    MinIO console → http://localhost:7101
 ```
 
 ## Production Deployment
@@ -27,7 +27,7 @@ docker compose up -d --build
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 ```
 
-This binds API (`6500`) and MinIO (`7000`/`7001`) to **localhost only**. Nginx is the sole public-facing entry.
+This binds API (`6500`) and MinIO (`7100`/`7101`) to **localhost only**. Nginx is the sole public-facing entry.
 
 ### Setup checklist
 
@@ -35,7 +35,7 @@ This binds API (`6500`) and MinIO (`7000`/`7001`) to **localhost only**. Nginx i
 2. **`.env`:** strong `MINIO_ROOT_*`, `API_KEYS`, `CORS_ORIGINS`, `TRUSTED_HOSTS`, `PUBLIC_BASE_URL`.
 3. **Nginx:** copy `deploy/nginx/upload-api.conf` → `/etc/nginx/sites-available/upload.1550plus.com`, symlink to `sites-enabled`, run `nginx -t && systemctl reload nginx`.
 4. **TLS:** `sudo certbot --nginx -d upload.1550plus.com` then `systemctl reload nginx`.
-5. **Firewall:** allow **22**, **80**, **443** only. Never expose 6500/7000/7001 publicly.
+5. **Firewall:** allow **22**, **80**, **443** only. Never expose 6500/7100/7101 publicly.
 6. **Backups:** snapshot `minio_data` volume or `mc mirror`.
 
 ## API Endpoints
